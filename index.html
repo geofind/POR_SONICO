@@ -59,6 +59,7 @@
             background-repeat: no-repeat;
             background-attachment: fixed;
             color: #000;
+            text-align: center;
         }
         .table {
             width: 100%;
@@ -108,7 +109,7 @@
 
     <br>
 
-    <ul>Where:
+    <ul style="list-style-type: none; padding: 0;">
         <li>ɸS = Porosidade Sônica do perfil</li>
         <li>Δtma = Tempo de trânsito da matriz</li>
         <li>Δtlog = Tempo de trânsito retirado do perfil (from the sonic log)</li>
@@ -131,12 +132,12 @@
                                     class="rounded text-center border border-secondary" id="delta_t_log"
                                     autocomplete="off"> µs/ft </label></td>
                         <td colspan="2"><label for="delta_tma"><strong>Δtma</strong>: <input type="number" min="0"
-                                    class="rounded text-center border border-secondary" id="delta_tma"
+                                    value="50" class="rounded text-center border border-secondary" id="delta_tma"
                                     autocomplete="off"> µs/ft </label></td>
                     </tr>
                     <tr>
                         <td colspan="4"><label for="delta_tfl"><strong>Δtfl</strong>: <input type="number" min="0"
-                                    class="rounded text-center border border-secondary" id="delta_tfl"
+                                    value="180" class="rounded text-center border border-secondary" id="delta_tfl"
                                     autocomplete="off"> µs/ft </label></td>
                     </tr>
                     <tr>
@@ -168,5 +169,6 @@
         <a style="color: rgba(240, 240, 233, 0.586); font-size: 20px !important;"
         href="https://www.linkedin.com/in/carlos-eduardo-cardoso-60525323/"><i class="fa fa-linkedin-square"></i></a>
     </p>
+    <p class="footerNote">Valores pré-preenchidos são para a matrix de rochas carbonáticas</p>
 </body>
 </html>
