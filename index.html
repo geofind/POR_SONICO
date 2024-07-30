@@ -3,32 +3,29 @@
 <head>
     <title>Porosity - Sonic Log (Wyllie et al., 1958)</title>
     <script>
-        async function calcularPorosidade() {
-            const deltaTLog = document.getElementById('delta_t_log').value;
-            const deltaTma = document.getElementById('delta_tma').value;
-            const deltaTfl = document.getElementById('delta_tfl').value;
+        function calcularPorosidade() {
+            const deltaTLog = parseFloat(document.getElementById('delta_t_log').value);
+            const deltaTma = parseFloat(document.getElementById('delta_tma').value);
+            const deltaTfl = parseFloat(document.getElementById('delta_tfl').value);
+            const errorMessage = document.getElementById('errorMessage');
 
-            if (!deltaTLog || !deltaTma || !deltaTfl) {
-                document.getElementById('errorMessage').textContent = "All values are required";
+            if (isNaN(deltaTLog) || isNaN(deltaTma) || isNaN(deltaTfl)) {
+                errorMessage.textContent = "All values must be numbers";
                 return;
             }
 
-            const deltaTLogFloat = parseFloat(deltaTLog);
-            const deltaTmaFloat = parseFloat(deltaTma);
-            const deltaTflFloat = parseFloat(deltaTfl);
-
-            if (isNaN(deltaTLogFloat) || isNaN(deltaTmaFloat) || isNaN(deltaTflFloat)) {
-                document.getElementById('errorMessage').textContent = "All values must be numbers";
+            if (deltaTLog <= 0 || deltaTma <= 0 || deltaTfl <= 0) {
+                errorMessage.textContent = "All values must be positive numbers";
                 return;
             }
 
-            const porosity = ((deltaTLogFloat - deltaTmaFloat) / (deltaTflFloat - deltaTmaFloat)).toFixed(4);
+            const porosity = ((deltaTLog - deltaTma) / (deltaTfl - deltaTma)).toFixed(4);
             const porosityPercentage = (porosity * 100).toFixed(2);
 
             document.getElementById('result').value = porosity;
             document.getElementById('resultPorc').value = `${porosityPercentage} %`;
 
-            document.getElementById('errorMessage').textContent = "";
+            errorMessage.textContent = "";
         }
 
         function activateButton() {
@@ -90,14 +87,18 @@
             color: #aaa;
             font-size: 20px;
         }
+        #errorMessage {
+            color: red;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <h2>Porosity - Sonic Log (Wyllie et al., 1958) </h2>
+    <h2>Porosity - Sonic Log (Wyllie et al., 1958)</h2>
 
     <p>The calculation of sonic derived porosity, can be done from the time average Wyllie (Wyllie et al., 1958) equation, which is expressed the following way:</p> 
 
-    <img alt="Porosity - Sonic Log (Wyllie et al., 1958)"
+    <img alt="Porosity - Sonic Log (Wyllie et al., 1958)" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjipBiHb6AGE3yDjOvmOGz1A1D7nF6Z9bj2CIBM8V27qkC4mjOjBG293rcJgWn78mr1sOo6GPAFqosEBJU0GtCMJnDdd8M1LsPMkoVFZLu03FhPdL3uFWrFLV9Q5aKiSxvHNumV5mLtEBBR/s1600/porosidadsonicowyllie.gif">
 
     <br>
 
@@ -107,8 +108,6 @@
         <li>Δtlog = interval transit time of the formation (from the sonic log)</li>
         <li>Δtfl = fluid interval transit time</li>
     </ul>
-
-    <br>
 
     <br>
 
@@ -122,25 +121,22 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td colspan="2"><label for="delta_t_log"><strong>Δtlog</strong>: <input min="0"
+                        <td colspan="2"><label for="delta_t_log"><strong>Δtlog</strong>: <input type="number" min="0"
                                     class="rounded text-center border border-secondary" id="delta_t_log"
-                                    autocomplete="off">
-                                µs/ft </label></td>
-                        <td colspan="2"><label for="delta_tma"><strong>Δtma</strong>: <input min="0"
+                                    autocomplete="off"> µs/ft </label></td>
+                        <td colspan="2"><label for="delta_tma"><strong>Δtma</strong>: <input type="number" min="0"
                                     class="rounded text-center border border-secondary" id="delta_tma"
-                                    autocomplete="off">
-                                µs/ft </label></td>
+                                    autocomplete="off"> µs/ft </label></td>
                     </tr>
                     <tr>
-                        <td colspan="4"><label for="delta_tfl"><strong>Δtfl</strong>: <input min="0"
+                        <td colspan="4"><label for="delta_tfl"><strong>Δtfl</strong>: <input type="number" min="0"
                                     class="rounded text-center border border-secondary" id="delta_tfl"
-                                    autocomplete="off">
-                                µs/ft </label></td>
+                                    autocomplete="off"> µs/ft </label></td>
                     </tr>
                     <tr>
                         <td colspan="4">
                             <button id="calculateButton" type="button" class="btn btn-dark"
-                                disabled>Calculate</button>
+                                disabled onclick="calcularPorosidade()">Calculate</button>
                         </td>
                     </tr>
                     <tr>
@@ -155,16 +151,16 @@
                 </tbody>
             </table>
             <div class="col-12 text-center m-2">
-                <small class="text-danger" id="errorMessage"></small>
+                <small id="errorMessage"></small>
             </div>
         </div>
     </div>
 
-    <p class="footerNote">Made by <strong><em>Carlos Cardoso</em></strong> <a
+    <p class="footerNote">Made by <strong><em>Henry Herrera</em></strong> <a
         style="color: rgba(248, 248, 247, 0.586); font-size: 20px !important;"
-        href="https://www.instagram.com/cadu.cardoso/"><i class="cadu instagram"></i></a>
+        href="https://www.instagram.com/servicioswebhh"><i class="fa fa-instagram"></i></a>
         <a style="color: rgba(240, 240, 233, 0.586); font-size: 20px !important;"
-        href="https://linkedin.com/in/carlos-eduardo-cardoso-60525323/"><i class="fa fa-linkedin-square"></i></a>
+        href="http://linkedin.com/in/herrerahenry"><i class="fa fa-linkedin-square"></i></a>
     </p>
 </body>
 </html>
