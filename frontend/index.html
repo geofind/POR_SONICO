@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora de Porosidade</title>
+    <script>
+        async function calcularPorosidade() {
+            const deltaTLog = document.getElementById('delta_t_log').value;
+            const response = await fetch(`https://your-pythonanywhere-username.pythonanywhere.com/calculate?delta_t_log=${deltaTLog}`);
+            const data = await response.json();
+            if (response.ok) {
+                document.getElementById('result').textContent = `A porosidade calculada é: ${data.porosidade}%`;
+            } else {
+                document.getElementById('result').textContent = `Erro: ${data.error}`;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Calculadora de Porosidade</h1>
+    <label for="delta_t_log">Digite o valor do LOG sônico (Δt log) em µs/ft:</label>
+    <input type="text" id="delta_t_log" name="delta_t_log">
+    <button onclick="calcularPorosidade()">Calcular</button>
+    <p id="result"></p>
+</body>
+</html>
