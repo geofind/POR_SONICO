@@ -22,7 +22,7 @@
             const porosity = ((deltaTLog - deltaTma) / (deltaTfl - deltaTma)).toFixed(4);
             const porosityPercentage = (porosity * 100).toFixed(2);
 
-            document.getElementById('result').value = porosity;
+            document.getElementById('resultado').value = porosity;
             document.getElementById('resultPorc').value = `${porosityPercentage} %`;
 
             errorMessage.textContent = "";
@@ -40,7 +40,7 @@
                 calculateButton.setAttribute("disabled", "true");
             }
 
-            document.getElementById('result').value = "";
+            document.getElementById('resultado').value = "";
             document.getElementById('resultPorc').value = "";
         }
 
@@ -54,12 +54,18 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            background-image: url('fundo_app_petrofisica.png'); /* Atualize este caminho para o URL correto da imagem */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #000;
         }
         .table {
             width: 100%;
             max-width: 600px;
             margin: 20px auto;
             border-collapse: collapse;
+            background-color: rgba(255, 255, 255, 0.8);
         }
         .table th, .table td {
             padding: 10px;
@@ -96,17 +102,17 @@
 <body>
     <h2>Porosity - Sonic Log (Wyllie et al., 1958)</h2>
 
-    <p>Realizar o cálculo da porosidade derivada do perfil sônico a partir da média tempo de trânsito Wyllie (Wyllie et al., 1958), que é expressa através: way:</p> 
+    <p>Realizar o cálculo da porosidade derivada do perfil sônico a partir da média tempo de trânsito Wyllie (Wyllie et al., 1958), que é expressa através:</p> 
 
     <img alt="Porosity - Sonic Log (Wyllie et al., 1958)" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjipBiHb6AGE3yDjOvmOGz1A1D7nF6Z9bj2CIBM8V27qkC4mjOjBG293rcJgWn78mr1sOo6GPAFqosEBJU0GtCMJnDdd8M1LsPMkoVFZLu03FhPdL3uFWrFLV9Q5aKiSxvHNumV5mLtEBBR/s1600/porosidadsonicowyllie.gif">
 
     <br>
 
     <ul>Where:
-        <li>ɸS = Porosidade Sônica do perfily</li>
-        <li>Δtma = Tempo de trânsito da matrix </li>
+        <li>ɸS = Porosidade Sônica do perfil</li>
+        <li>Δtma = Tempo de trânsito da matriz</li>
         <li>Δtlog = Tempo de trânsito retirado do perfil (from the sonic log)</li>
-        <li>Δtfl = Tempo de trânsito do fluido time</li>
+        <li>Δtfl = Tempo de trânsito do fluido</li>
     </ul>
 
     <br>
