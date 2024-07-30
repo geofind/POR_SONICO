@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Porosity - Sonic Log (Wyllie et al., 1958)</title>
+    <script>
+        async function calcularPorosidade() {
+            const deltaTLog = document.getElementById('delta_t_log').value;
+            const deltaTma = document.getElementById('delta_tma').value;
+            const deltaTfl = document.getElementById('delta_tfl').value;
+
+            if (!deltaTLog || !deltaTma || !deltaTfl) {
+                document.getElementById('errorMessage').textContent = "All values are required";
+                return;
+            }
+
+            const deltaTLogFloat = parseFloat(deltaTLog);
+            const deltaTmaFloat = parseFloat(deltaTma);
+            const deltaTflFloat = parseFloat(deltaTfl);
+
+            if (isNaN(deltaTLogFloat) || isNaN(deltaTmaFloat) || isNaN(deltaTflFloat)) {
+                document.getElementById('errorMessage').textContent = "All values must be numbers";
+                return;
+            }
+
+            const porosity = ((deltaTLogFloat - deltaTmaFloat) / (deltaTflFloat - deltaTmaFloat)).toFixed(4);
+            const porosityPercentage = (porosity * 100).toFixed(2);
+
+            document.getElementById('result').value = porosity;
+            document.getElementById('resultPorc').value = `${porosityPercentage} %`;
+
+            document.getElementById('errorMessage').textContent = "";
+        }
+
+        function activateButton() {
+            const deltaTLog = document.getElementById('delta_t_log').value;
+            const deltaTma = document.getElementById('delta_tma').value;
+            const deltaTfl = document.getElementById('delta_tfl').value;
+            const calculateButton = document.getElementById('calculateButton');
+
+            if (deltaTLog && deltaTma && deltaTfl) {
+                calculateButton.removeAttribute("disabled");
+            } else {
+                calculateButton.setAttribute("disabled", "true");
+            }
+
+            document.getElementById('result').value = "";
+            document.getElementById('resultPorc').value = "";
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('delta_t_log').onkeyup = activateButton;
+            document.getElementById('delta_tma').onkeyup = activateButton;
+            document.getElementById('delta_tfl').onkeyup = activateButton;
+        });
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .table {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        .table th, .table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .table th {
+            background-color: #f2f2f2;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .footerNote {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .footerNote a {
+            color: #aaa;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Porosity - Sonic Log (Wyllie et al., 1958) </h2>
+
+    <p>The calculation of sonic derived porosity, can be done from the time average Wyllie (Wyllie et al., 1958) equation, which is expressed the following way:</p> 
+
+    <img alt="Porosity - Sonic Log (Wyllie et al., 1958)"
+
+    <br>
+
+    <ul>Where:
+        <li>ɸS = sonic porosity</li>
+        <li>Δtma = matrix interval transit time</li>
+        <li>Δtlog = interval transit time of the formation (from the sonic log)</li>
+        <li>Δtfl = fluid interval transit time</li>
+    </ul>
+
+    <br>
+
+    <br>
+
+    <div class="row">
+        <div class="col-12 col-md-10 mx-auto">
+            <table class="table table-bordered text-center">
+                <thead class="table-info">
+                    <tr>
+                        <th colspan="4"><strong> Calculate Sonic Derived Porosity </strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="2"><label for="delta_t_log"><strong>Δtlog</strong>: <input min="0"
+                                    class="rounded text-center border border-secondary" id="delta_t_log"
+                                    autocomplete="off">
+                                µs/ft </label></td>
+                        <td colspan="2"><label for="delta_tma"><strong>Δtma</strong>: <input min="0"
+                                    class="rounded text-center border border-secondary" id="delta_tma"
+                                    autocomplete="off">
+                                µs/ft </label></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4"><label for="delta_tfl"><strong>Δtfl</strong>: <input min="0"
+                                    class="rounded text-center border border-secondary" id="delta_tfl"
+                                    autocomplete="off">
+                                µs/ft </label></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <button id="calculateButton" type="button" class="btn btn-dark"
+                                disabled>Calculate</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <input type="text" id="result" style="width: 200px;"
+                                class="rounded text-center border border-secondary mb-2 mb-md-0" placeholder="Result (dec)"
+                                disabled>
+                            <input type="text" id="resultPorc" style="width: 200px;" placeholder="Result (%)"
+                                class="rounded text-center border border-secondary" disabled>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="col-12 text-center m-2">
+                <small class="text-danger" id="errorMessage"></small>
+            </div>
+        </div>
+    </div>
+
+    <p class="footerNote">Made by <strong><em>Carlos Cardoso</em></strong> <a
+        style="color: rgba(248, 248, 247, 0.586); font-size: 20px !important;"
+        href="https://www.instagram.com/cadu.cardoso/"><i class="cadu instagram"></i></a>
+        <a style="color: rgba(240, 240, 233, 0.586); font-size: 20px !important;"
+        href="https://linkedin.com/in/carlos-eduardo-cardoso-60525323/"><i class="fa fa-linkedin-square"></i></a>
+    </p>
+</body>
+</html>
